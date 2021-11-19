@@ -2,16 +2,16 @@ import {
   StoreGetShippingOptionsParams,
   StoreShippingOptionsListRes,
 } from "@medusajs/medusa"
-import { AxiosPromise } from "axios"
+import { Response } from "../typings"
 import BaseResource from "./base"
 
 class ShippingOptionsResource extends BaseResource {
   /**
    * @description Lists shiping options available for a cart
    * @param {string} cart_id
-   * @return {AxiosPromise<StoreShippingOptionsListRes>}
+   * @return {Response<StoreShippingOptionsListRes>}
    */
-  listCartOptions(cart_id: string): AxiosPromise<StoreShippingOptionsListRes> {
+  listCartOptions(cart_id: string): Response<StoreShippingOptionsListRes> {
     const path = `/store/shipping-options/${cart_id}`
     return this.client.request("GET", path)
   }
@@ -19,11 +19,11 @@ class ShippingOptionsResource extends BaseResource {
   /**
    * @description Lists shiping options available
    * @param {StoreGetShippingOptionsParamsObject} query
-   * @return {AxiosPromise<StoreShippingOptionsListRes>}
+   * @return {Response<StoreShippingOptionsListRes>}
    */
   list(
     query?: StoreGetShippingOptionsParams
-  ): AxiosPromise<StoreShippingOptionsListRes> {
+  ): Response<StoreShippingOptionsListRes> {
     let path = `/store/shipping-options`
 
     const queryString = Object.entries(query || {}).map(([key, value]) => {

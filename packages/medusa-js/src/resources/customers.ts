@@ -6,7 +6,7 @@ import {
   StorePostCustomersCustomerReq,
   StorePostCustomersReq,
 } from "@medusajs/medusa"
-import { AxiosPromise } from "axios"
+import { Response } from "../typings"
 import AddressesResource from "./addresses"
 import BaseResource from "./base"
 import PaymentMethodsResource from "./payment-methods"
@@ -18,18 +18,18 @@ class CustomerResource extends BaseResource {
   /**
    * Creates a customer
    * @param {StorePostCustomersReq} payload information of customer
-   * @return { AxiosPromise<StoreCustomersRes>}
+   * @return { Response<StoreCustomersRes>}
    */
-  create(payload: StorePostCustomersReq): AxiosPromise<StoreCustomersRes> {
+  create(payload: StorePostCustomersReq): Response<StoreCustomersRes> {
     const path = `/store/customers`
     return this.client.request("POST", path, payload)
   }
 
   /**
    * Retrieves the customer that is currently logged
-   * @return {AxiosPromise<StoreCustomersRes>}
+   * @return {Response<StoreCustomersRes>}
    */
-  retrieve(): AxiosPromise<StoreCustomersRes> {
+  retrieve(): Response<StoreCustomersRes> {
     const path = `/store/customers/me`
     return this.client.request("GET", path)
   }
@@ -37,11 +37,9 @@ class CustomerResource extends BaseResource {
   /**
    * Updates a customer
    * @param {StorePostCustomersCustomerReq} payload information to update customer with
-   * @return {AxiosPromise<StoreCustomersRes>}
+   * @return {Response<StoreCustomersRes>}
    */
-  update(
-    payload: StorePostCustomersCustomerReq
-  ): AxiosPromise<StoreCustomersRes> {
+  update(payload: StorePostCustomersCustomerReq): Response<StoreCustomersRes> {
     const path = `/store/customers/me`
     return this.client.request("POST", path, payload)
   }
@@ -49,11 +47,11 @@ class CustomerResource extends BaseResource {
   /**
    * Retrieve customer orders
    * @param {StoreGetCustomersCustomerOrdersParams} params optional params to retrieve orders
-   * @return {AxiosPromise<StoreCustomersListOrdersRes>}
+   * @return {Response<StoreCustomersListOrdersRes>}
    */
   listOrders(
     params?: StoreGetCustomersCustomerOrdersParams
-  ): AxiosPromise<StoreCustomersListOrdersRes> {
+  ): Response<StoreCustomersListOrdersRes> {
     let path = `/store/customers/me/orders`
     if (params) {
       let query: string | undefined
@@ -76,11 +74,11 @@ class CustomerResource extends BaseResource {
   /**
    * Resets customer password
    * @param {StorePostCustomersCustomerPasswordTokenReq} payload info used to reset customer password
-   * @return {AxiosPromise<StoreCustomersRes>}
+   * @return {Response<StoreCustomersRes>}
    */
   resetPassword(
     payload: StorePostCustomersCustomerPasswordTokenReq
-  ): AxiosPromise<StoreCustomersRes> {
+  ): Response<StoreCustomersRes> {
     const path = `/store/customers/password-reset`
     return this.client.request("POST", path, payload)
   }
@@ -89,11 +87,11 @@ class CustomerResource extends BaseResource {
    * Generates a reset password token, which can be used to reset the password.
    * The token is not returned but should be sent out to the customer in an email.
    * @param {StorePostCustomersCustomerPasswordTokenReq} payload info used to generate token
-   * @return {AxiosPromise}
+   * @return {Response}
    */
   generatePasswordToken(
     payload: StorePostCustomersCustomerPasswordTokenReq
-  ): AxiosPromise {
+  ): Response {
     const path = `/store/customers/password-token`
     return this.client.request("POST", path, payload)
   }
